@@ -1,4 +1,4 @@
-<div class="container-fluid page-body-wrapper">
+<div class="">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar p-0 fixed-top d-flex flex-row">
       <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
@@ -150,11 +150,14 @@
               <p class="p-3 mb-0 text-center">See all notifications</p>
             </div>
           </li>
-          <li>
-            <x-app-layout>
+            <li>
+                <div>
+                    <x-app-layout>
 
-            </x-app-layout>
-          </li>
+                    </x-app-layout>
+                </div>
+            </li>
+
       </div>
     </nav>
     <!-- partial -->

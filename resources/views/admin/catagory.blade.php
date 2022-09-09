@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Corona Admin</title>
+    <title>palstore Admin</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="admin/assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="admin/assets/vendors/css/vendor.bundle.base.css">
@@ -23,7 +23,9 @@
     <link rel="shortcut icon" href="admin/assets/images/favicon.png" />
 
     <style type="text/css">
-
+     .wrapper {
+          min-height: 100%;
+      }
     .div_center
     {
         text-align: center;
@@ -33,13 +35,21 @@
     {
         font-size: 40px;
         padding-bottom: 40px;
+        color: whitesmoke;
 
     }
     .input_color
     {
-        color: #000;
+        color: black;
     }
-
+    .center{
+        margin: auto;
+        width: 50%;
+        text-align: center;
+        color: white;
+        border: 3px solid;
+        margin-top: 30px
+    }
 
     </style>
   </head>
@@ -49,33 +59,46 @@
       @include('admin.sidebar')
       @include('admin.other_header')
       <!-- partial -->
+
       <div class="main-panel">
         <div class="content-wrapper">
-          <div class="row">
-
-
-          <!-- catagory -->
-
-
-                <div>
+               @if(session()->has('message'))
+                     <div class="alert alert-success">
+                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                         {{ session()->get('message') }}
+                     </div>
+               @endif
+          <div>
                     <h2 class="h2_font"> Add Catagory</h2>
-                    <form action="">
-                        <input class="input_color" type="text" name="name" placeholder="write catagory name">
+                    <form action="{{ url('/add_catagory')}}" method="POST">
+                        @csrf
+
+                        <input class="input_color" type="text" name="catagory" placeholder="write catagory name">
                         <input type="submit" class="btn btn-primary" name="submit" value="Add catagory">
                     </form>
                 </div>
-
-            </div>
-<!-- catagory -->
-
-
-
+<br>
+                <table class="center">
+                    <tr>
+                        <td>
+                                  <h6>Catagory Name</h6>
+                        </td>
+                        <td>
+                                  <h6>Action</h6>
+                        </td>
+                    </tr>
+                    @foreach ($data as $data)
+                    <tr>
+                        <td>{{ $data->catagory_name }}</td>
+                        <td>
+                            <a onclick="return confirm('are you sure you want to delete this')" class="btn btn-danger" href="{{ url('delete_catagory',$data->id)}}">Delete</a>
+                        </td>
+                    </tr>
+                    @endforeach
+                </table>
 
       </div>
-
-
       <!-- page-body-wrapper ends -->
-
     </div>
 
 

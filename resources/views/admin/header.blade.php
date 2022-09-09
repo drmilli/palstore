@@ -151,9 +151,11 @@
             </div>
           </li>
           <li>
-            <x-app-layout>
+            <div>
+                <x-app-layout>
 
-            </x-app-layout>
+                </x-app-layout>
+            </div>
           </li>
       </div>
     </nav>
