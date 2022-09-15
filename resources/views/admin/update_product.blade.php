@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+      <base href="/public">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -30,8 +31,10 @@
     {
         text-align: center;
         padding-top: 40px;
+        color: whitesmoke;
+
     }
-    .h2_font
+    .font_size
     {
         font-size: 40px;
         padding-bottom: 40px;
@@ -62,43 +65,75 @@
 
       <div class="main-panel">
         <div class="content-wrapper">
-               @if(session()->has('message'))
+            @if(session()->has('message'))
                      <div class="alert alert-success">
                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
                          {{ session()->get('message') }}
                      </div>
                @endif
-          <div class="div_center">
-                    <h2 class="h2_font"> Add Catagory</h2>
-                    <form action="{{ url('/add_catagory')}}" method="POST">
-                        @csrf
-
-                        <input class="input_color" type="text" name="catagory" placeholder="write catagory name">
-                        <input type="submit" class="btn btn-primary" name="submit" value="Add catagory">
-                    </form>
+            <div class="div_center">
+                 <h1>update product</h1>
+                 <form action="{{ url('/update_confirm_product',$product->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                 <div>
+                 <label for=""> Product Title</label>
+                 <input class="form-control" type="text" name="title" placeholder="input title" value="{{ $product->title }}">
                 </div>
-<br>
-                <table class="center">
-                    <tr>
-                        <td>
-                                  <h6>Catagory Name</h6>
-                        </td>
-                        <td>
-                                  <h6>Action</h6>
-                        </td>
-                    </tr>
-                    @foreach ($data as $data)
-                    <tr>
-                        <td>{{ $data->catagory_name }}</td>
-                        <td>
-                            <a onclick="return confirm('are you sure you want to delete this')" class="btn btn-danger" href="{{ url('delete_catagory',$data->id)}}">Delete</a>
-                        </td>
-                    </tr>
-                    @endforeach
-                </table>
+
+                <div>
+                    <label for=""> Product Description</label>
+                    <input class="form-control" type="text" name="description" placeholder="input Description" value="{{ $product->description }}" required>
+                   </div>
+
+                   <div>
+                    <label for=""> Product Price</label>
+                    <input class="form-control" type="number"  name="price" placeholder="input price" value="{{ $product->price }}" required>
+                   </div>
+
+                   <div>
+                    <label for=""> Product Discount Price</label>
+                    <input class="form-control" type="number"  name="dis_price" placeholder="discount if applied" value="{{ $product->discount_price }}">
+                   </div>
+
+                   <div>
+                    <label for=""> Product Quantity</label>
+                    <input class="form-control" type="number" min="0"  name="quantity" placeholder="input Quantity" required value="{{ $product->quantity }}">
+                   </div>
+
+                   <div>
+                    <label for=""> Product Catagory</label>
+                    <select class="form-control" name="catagory" id="" required>
+                        <option value="{{ $product->catagory }}" selected> {{ $product->catagory }}</option>
+                        @foreach($catagory as $catagory)
+                        <option value="{{ $catagory->catagory_name }}">{{ $catagory->catagory_name }}</option>
+                        @endforeach
+
+
+
+                    </select>
+                   </div>
+
+                   <div>
+                    <label for="">current product image</label>
+               <img style="margin: auto;" height="100" width="100" src="/product/{{ $product->image }}">
+              </div>
+
+              <div>
+                <label for=""> change product image</label>
+                <input class="form-control" type="file" name="image" placeholder="input image" >
+               </div>
+
+                   <div>
+
+                    <input class="btn btn-primary" type="submit" value="update Product" >
+                   </div>
+                </form>
+
+
+
+            </div>
 
       </div>
-      <!-- page-body-wrapper ends -->
     </div>
 
 

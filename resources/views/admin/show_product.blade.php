@@ -23,19 +23,13 @@
     <link rel="shortcut icon" href="admin/assets/images/favicon.png" />
 
     <style type="text/css">
-     .wrapper {
-          min-height: 100%;
-      }
-    .div_center
-    {
-        text-align: center;
-        padding-top: 40px;
-    }
+
     .h2_font
     {
         font-size: 40px;
         padding-bottom: 40px;
         color: whitesmoke;
+        text-align: center;
 
     }
     .input_color
@@ -47,8 +41,19 @@
         width: 50%;
         text-align: center;
         color: white;
-        border: 3px solid;
-        margin-top: 30px
+        border: 2px solid;
+        margin-top: 40px
+    }
+    .img_size
+    {
+        width: 150px;
+        height: 150px;
+    }
+    .th_color{
+        background-color: skyblue;
+    }
+    .th_deg{
+        padding: 25px;
     }
 
     </style>
@@ -62,43 +67,49 @@
 
       <div class="main-panel">
         <div class="content-wrapper">
-               @if(session()->has('message'))
+            @if(session()->has('message'))
                      <div class="alert alert-success">
                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
                          {{ session()->get('message') }}
                      </div>
                @endif
-          <div class="div_center">
-                    <h2 class="h2_font"> Add Catagory</h2>
-                    <form action="{{ url('/add_catagory')}}" method="POST">
-                        @csrf
+            <div class="h2_font"><h2>All product</h2></div>
 
-                        <input class="input_color" type="text" name="catagory" placeholder="write catagory name">
-                        <input type="submit" class="btn btn-primary" name="submit" value="Add catagory">
-                    </form>
-                </div>
-<br>
-                <table class="center">
-                    <tr>
-                        <td>
-                                  <h6>Catagory Name</h6>
-                        </td>
-                        <td>
-                                  <h6>Action</h6>
-                        </td>
-                    </tr>
-                    @foreach ($data as $data)
-                    <tr>
-                        <td>{{ $data->catagory_name }}</td>
-                        <td>
-                            <a onclick="return confirm('are you sure you want to delete this')" class="btn btn-danger" href="{{ url('delete_catagory',$data->id)}}">Delete</a>
-                        </td>
-                    </tr>
-                    @endforeach
-                </table>
+            <table class="center">
+                <tr class="th_color">
+                    <th class="th_deg">Product Title</th>
+                    <th class="th_deg" >description</th>
+                    <th class="th_deg">quantity</th>
+                    <th class="th_deg">Catagory</th>
+                    <th class="th_deg">price</th>
+                    <th class="th_deg">discount price</th>
+                    <th class="th_deg">image</th>
+                    <th class="th_deg">Delete</th>
+                    <th class="th_deg">Edit</th>
+                </tr>
+                @foreach ($product as $product )
+
+
+                <tr>
+                    <td>{{ $product->title }}</td>
+                    <td>{{ $product->description }}</td>
+                    <td>{{ $product->quantity }}</td>
+                    <td>{{ $product->Catagory }}</td>
+                    <td>{{ $product->price }}</td>
+                    <td>{{ $product->discount_price }}</td>
+                    <td>
+                        <img class="img_size" src="/product/{{$product->image}}" >
+                    </td>
+                    <td> <a class="btn btn-danger" onclick="return confirm('are you sure you want to delete this')"  href="{{ url('delete_product',$product->id) }}">Detele</a></td>
+                    <td> <a class="btn btn-success" href="{{ url('update_product',$product->id) }}">Edit</a> </td>
+
+
+                </tr>
+                @endforeach
+            </table>
+
 
       </div>
-      <!-- page-body-wrapper ends -->
     </div>
 
 
